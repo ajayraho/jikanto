@@ -7,17 +7,22 @@ const inter = Inter({ subsets: ["latin"], variable: '--font-inter',});
 const optima = localFont({
   src: [
     {
-      path: '../fonts/Optima Regular.ttf',
+      path: '../fonts/optimaregular.ttf',
       weight: '400',
       style: 'normal',
     },
     {
-      path: '../fonts/Optima Italic.ttf',
+      path: '../fonts/optimamedium.ttf',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: '../fonts/optimaitalic.ttf',
       weight: '400',
       style: 'italic',
     },
     {
-      path: '../fonts/Optima Bold.ttf',
+      path: '../fonts/optimabold.ttf',
       weight: '700',
       style: 'normal',
     },
