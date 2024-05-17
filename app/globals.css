@@ -21,3 +21,79 @@
     text-wrap: balance;
   }
 }
+
+
+
+body {
+background-color: rgba(4,5,10,255);
+}
+
+h1{
+  color: #fff;
+}
+.mainContent{
+  background: rgb(35,114,217);
+background: linear-gradient(155deg, rgba(35,114,217,01) 0%, rgba(0,0,0,0) 48%, rgba(0,0,0,0) 60%, rgba(35,114,217,0.8) 100%);
+
+}
+
+
+.dateText {
+  background: rgb(0,120,233);
+background: linear-gradient(270deg, rgba(0,120,233,1) 0%, rgba(0,0,0,0) 100%);
+/*
+  border-bottom: 1px solid #45e5f5;
+  border-right: 1px solid #45e5f5;
+*/  
+  border-width:1px;
+  border-style:solid;
+  border-image: linear-gradient(to left, #45e5f5 80%, rgba(255,0,0,0)) 0.5;
+  border-left: none;
+}
+
+
+.dialogButtonActive {
+  background: rgb(0,120,233);
+background: linear-gradient(270deg, rgba(0,120,233,1) 0%, rgba(0,0,0,0) 100%);
+/*
+  border-bottom: 1px solid #45e5f5;
+  border-right: 1px solid #45e5f5;
+*/  
+  border-width:1px;
+  border-style:solid;
+  border-image: linear-gradient(to right,  rgba(255,0,0,0) 10%, #45e5f5, rgba(255,0,0,0) 90% ) 0.5;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+}
+
+.dialogButtonNegative {
+  border: none;
+}
+.dateText h1 {
+  color: #00effb;
+}
+.foot {
+  background: linear-gradient(135deg, rgba(0,120,233,0.5) 10%, rgba(0,0,0,0) 50%); 
+}
+
+.toastBody {
+  background: rgb(204,204,204);
+background: linear-gradient(90deg, rgba(204,204,204,1) 25%, rgba(0,0,0,0) 100%);
+}
+
+
+.dialogboxStyle {
+  border-width: 5px;
+  border-style: solid;
+  border-image: linear-gradient(to bottom,  #3d8db4 0%, rgba(255,0,0,0) 40% ) 0.5;
+  border-bottom: none;
+}
+.inputText {
+  border-width:1px;
+  border-style:solid;
+  border-image: linear-gradient(to right,  rgba(255,0,0,0) -1%, #45e5f5, rgba(255,0,0,0) 101% ) 0.5;
+  border-left: none;
+  border-right: none;
+  border-top: none; 
+}
