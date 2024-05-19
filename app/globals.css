@@ -86,8 +86,8 @@ background: linear-gradient(90deg, rgba(204,204,204,1) 25%, rgba(0,0,0,0) 100%);
 .dialogboxStyle {
   border-width: 5px;
   border-style: solid;
-  border-image: linear-gradient(to bottom,  #3d8db4 0%, rgba(255,0,0,0) 40% ) 0.5;
   border-bottom: none;
+  border-image: linear-gradient(to bottom,  #3d8db4 0%, rgba(0,20,41,0.7) 100% ) 0.5;
 }
 .inputText {
   border-width:1px;

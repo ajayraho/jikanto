@@ -3,13 +3,62 @@ import React, { useEffect, useState } from 'react';
 import { Fire, Add, Aero, Ice, Coin, Shine, UnCheck, Check, Edit, Delete, Hourglass, Dumbbell, Book, Meditation, Water, Japanese, BronzeI, BronzeII, BronzeIII } from '../components/SVG'
 import toast, { Toaster, resolveValue  } from 'react-hot-toast';
 
-import { Description, Dialog, DialogPanel, DialogTitle, Transition, TransitionChild, Button } from '@headlessui/react'
+import { Description, Dialog, DialogPanel, DialogTitle, Transition, TransitionChild, Button, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 
 
 
 
 export default function Home() {
-  let [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
+  const [questTitle, setQuestTitle] = useState("");
+  const [questTimeFrom, setQuestTimeFrom] = useState("");
+  const [questTimeTo, setQuestTimeTo] = useState("");
+  const [today, setToday] = useState({});
+  const [tasks, setTasks] = useState([]);
+  useEffect(()=>{
+    const now = new Date()
+    setToday({
+      date: now.getDate(),
+      month: now.toLocaleDateString('en-US', {month: 'long'}),
+      day: now.toLocaleDateString('en-US', {weekday: 'long'}),
+    });
+
+    setTasks([
+      {
+        title:"Quest 1",
+        from: "0600",  
+        to: "0800",
+        isCompleted: false,
+        exp: 100,
+        materia:0  
+      },
+      {
+        title:"Quest 2",
+        from: "0800",  
+        to: "1000",
+        isCompleted: false,
+        exp: 100,
+        materia:0  
+      },
+      {
+        title:"Quest 3",
+        from: "1000",  
+        to: "1100",
+        isCompleted: false,
+        exp: 100,
+        materia:0  
+      },
+      {
+        title:"Quest 4",
+        from: "1100",  
+        to: "0100",
+        isCompleted: false,
+        exp: 100,
+        materia:0  
+      }     
+    ])
+  }, []);
+
   return (
     <main className="flex flex-col  mainContent h-screen">
       <Toaster
@@ -46,7 +95,7 @@ export default function Home() {
 
       <Transition appear show={isOpen}>
         <Dialog as="div" className="relative z-10 focus:outline-none" onClose={()=>setIsOpen(false)}>
-          <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+          <div className="fixed inset-0 z-10 w-screen overflow-y-auto" style={{background:"rgba(0,0,0,0.7)"}}>
             <div className="flex min-h-full items-center justify-center p-4">
               <TransitionChild
                 enter="ease-out duration-300"
@@ -67,25 +116,68 @@ export default function Home() {
                     <table className="w-full">
                       <tr>
                         <th className="w-1/2 text-right pr-2 text-[#00effb] font-normal">Quest Title</th>
-                        <td className="w-1/2 pl-2"><input type="text" className="hover:outline-none text-center bg-transparent inputText"/></td>
+                        <td className="w-1/2 pl-2"><input type="text" value={questTitle} onChange={(v)=>setQuestTitle(v.target.value)} className="hover:outline-none text-center bg-transparent inputText"/></td>
                       </tr>
                       <tr>
                         <th className="w-1/2 text-right pr-2 text-[#00effb] font-normal">Quest Time</th>
                         <td className="w-full flex flex-row pl-2">
-                          <input type="text" className="w-16 outline-none hover:outline-none text-center bg-transparent inputText"/>
+                          <input type="text" value={questTimeFrom} onChange={(v)=>setQuestTimeFrom(v.target.value)} className="w-16 outline-none hover:outline-none text-center bg-transparent inputText"/>
                           <h5>to</h5>
-                          <input type="text" className="w-16 outline-none hover:outline-none text-center bg-transparent inputText"/>
+                          <input type="text" value={questTimeTo} onChange={(v)=>setQuestTimeTo(v.target.value)} className="w-16 outline-none hover:outline-none text-center bg-transparent inputText"/>
                         </td>
                       </tr>
                       <tr>
                         <th className="w-1/2 text-right pr-2 text-[#00effb] font-normal">Badge</th>
                         <td className="w-40 flex items-center justify-center flex-row pl-2 h-16">
-                          <select className="w-full h-8 text-center" style={{background:"linear-gradient(90deg, rgba(51,146,204,0) -5%, #01040d 50%, rgba(0,15,36,0) 105%)"}}>
-                            <option value="" className="flex flex-row w-full">
-                              <Fire />
-                              Fire
-                            </option>
-                          </select>
+                          <Menu>
+                            <MenuButton className="flex items-center gap-2 w-full py-1.5 px-3 text-sm text-white text-center focus:outline-none data-[focus]:outline-1 data-[focus]:outline-white" style={{background:"linear-gradient(90deg, rgba(51,146,204,0) -5%, #01040d 50%, rgba(0,15,36,0) 105%)"}}>
+                              <div className="w-5/6">Options</div>
+                              <div className="w-1/6">v</div>
+                            </MenuButton>
+                            <Transition
+                              enter="transition ease-out duration-75"
+                              enterFrom="opacity-0 scale-95"
+                              enterTo="opacity-100 scale-100"
+                              leave="transition ease-in duration-100"
+                              leaveFrom="opacity-100 scale-100"
+                              leaveTo="opacity-0 scale-95"
+                            >
+                              <MenuItems
+                                anchor="bottom end"
+                                className="w-52 z-50 origin-top-right border border-white/5 p-1 text-sm text-white [--anchor-gap:var(--spacing-1)] focus:outline-none bg-black" style={{borderRadius:0,zIndex:100,backgroundColor:"rgba(0,0,0,0.8)"}}
+                              >
+                                <MenuItem>
+                                  <button className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10">
+                                    <Fire h={10} className="size-4 fill-white/30" />
+                                    Fire
+                                    <kbd className="ml-auto hidden font-sans text-xs text-white/50 group-data-[focus]:inline">⌘E</kbd>
+                                  </button>
+                                </MenuItem>
+                                <MenuItem>
+                                  <button className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10">
+                                    <Aero h={10} className="size-4 fill-white/30" />
+                                    Aero
+                                    <kbd className="ml-auto hidden font-sans text-xs text-white/50 group-data-[focus]:inline">⌘D</kbd>
+                                  </button>
+                                </MenuItem>
+                                <div className="my-1 h-px bg-white/5" />
+                                <MenuItem>
+                                  <button className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10">
+                                    <Fire h={10} className="size-4 fill-white/30" />
+                                    Archive
+                                    <kbd className="ml-auto hidden font-sans text-xs text-white/50 group-data-[focus]:inline">⌘A</kbd>
+                                  </button>
+                                </MenuItem>
+                                <MenuItem>
+                                  <button className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10">
+                                    <Fire h={10} className="size-4 fill-white/30" />
+                                    Delete
+                                    <kbd className="ml-auto hidden font-sans text-xs text-white/50 group-data-[focus]:inline">⌘D</kbd>
+                                  </button>
+                                </MenuItem>
+                              </MenuItems>
+                            </Transition>
+                          </Menu>
                         </td>
                       </tr>
                     </table>
@@ -123,22 +215,22 @@ export default function Home() {
           <div className="flex flex-row">
             <div className="flex w-2/4">
               <div className="w-full text-center dateText flex flex-col">
-                <h1 className="text-6xl drop-shadow-sm">00</h1>
+                <h1 className="text-6xl drop-shadow-sm">{today.date}</h1>
                 <div className="w-full flex flex-row">
-                  <div className="w-full">Wednesday</div>
-                  <div className="w-full">September</div>
+                  <div className="w-full">{today.day}</div>
+                  <div className="w-full">{today.month}</div>
                 </div>
               </div>
               
             </div>
             <div className="flex flex-col text-right w-2/4">
               <div className="text-xs flex justify-end flex-col">
-                <div className="flex items-center p-0 drop-shadow-lg justify-end">
+                {/*<div className="flex items-center p-0 drop-shadow-lg justify-end">
                   <BronzeIII h={48} c="#fff"/>
-                </div>
+                </div>*/}
               </div>
                 <div className="flex mt-1 flex-col">
-                  <h3 className="text-xs">Bronze I</h3>
+                  <h3 className="text-lg">Bronze I</h3>
                   <h3 className="text-lg">999XP</h3>
                 </div>
               {/*<div onClick={()=>toast('You gained 400XP',{icon:<Fire c="#fff" />})}>
@@ -148,13 +240,13 @@ export default function Home() {
           </div>
           <div className="mt-8 overflow-auto" style={{height:"360px"}}>
             {
-              [...Array(10)].map((i,j)=>(
+              tasks.length>0?tasks.map((i,j)=>(
                   <div key={j} className={`flex px-2 py-2 flex-row ${j%2!==0?"bg-[#05224b]":""}`} style={{"height":"60px"}}>
                     <div className="w-2/5 flex flex-row">
-                      <div className="">0000 - 0000</div>
+                      <div className="">{i.from} - {i.to}</div>
                     </div>
                     <div className="w-3/5">
-                      <h2 className="text-[#00effb] truncate">Long Long Long Title Here</h2>
+                      <h2 className="text-[#00effb] truncate">{i.title}</h2>
                       <div className="text-sm text-right flex content-end justify-end gap-3">
                         <Delete />
                         <Edit />
@@ -162,7 +254,13 @@ export default function Home() {
                       </div>
                     </div>
                   </div>
-                ))
+                ))  :   
+              <div className="flex flex-col justify-center items-center h-1/2">
+                <h1 className="text-2xl">No Tasks</h1>
+                <div className="text-sm mt-2 flex flex-row gap-2">
+                  <div>Tap </div><div className="w-5 flex items-center justify-center border text-center h-5 bg-black">+</div><div> to Add a New Task</div>
+                </div>
+              </div>
             }
           </div>
           <div className="mt-5 flex flex-row foot pt-4  pl-4" style={{height:"150px"}}>
