@@ -97,3 +97,6 @@ background: linear-gradient(90deg, rgba(204,204,204,1) 25%, rgba(0,0,0,0) 100%);
   border-right: none;
   border-top: none; 
 }
+.svgico {
+  cursor: pointer;
+}

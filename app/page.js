@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import { Fire, Add, Aero, Ice, Coin, Shine, UnCheck, Check, Edit, Delete, Hourglass, Dumbbell, Book, Meditation, Water, Japanese, BronzeI, BronzeII, BronzeIII } from '../components/SVG'
+import { Fire, Add, Aero, Ice, Coin, Shine, UnCheck, Check, Edit, Delete, Hourglass, Dumbbell, Book, Meditation, Water, Japanese, BronzeI, BronzeII, BronzeIII, Tick } from '../components/SVG'
 import toast, { Toaster, resolveValue  } from 'react-hot-toast';
 
 import { Description, Dialog, DialogPanel, DialogTitle, Transition, TransitionChild, Button, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
@@ -55,10 +55,26 @@ export default function Home() {
         isCompleted: false,
         exp: 100,
         materia:0  
+      },
+      {
+        title:"Quest 5",
+        from: "1100",  
+        to: "0100",
+        isCompleted: true,
+        exp: 100,
+        materia:0  
       }     
     ])
   }, []);
 
+  function onRemove(itemToRemove) {
+    let prevTask = tasks
+    for(let i of prevTask)
+      if(i===itemToRemove) i.isCompleted=!i.isCompleted
+
+    setTasks([...prevTask])
+  }
+  console.log(tasks)
   return (
     <main className="flex flex-col  mainContent h-screen">
       <Toaster
@@ -238,22 +254,28 @@ export default function Home() {
               </div>*/}
             </div>
           </div>
-          <div className="mt-8 overflow-auto" style={{height:"360px"}}>
+          <div className="mt-8 overflow-y-auto overflow-x-hidden" style={{height:"360px"}}>
             {
               tasks.length>0?tasks.map((i,j)=>(
-                  <div key={j} className={`flex px-2 py-2 flex-row ${j%2!==0?"bg-[#05224b]":""}`} style={{"height":"60px"}}>
-                    <div className="w-2/5 flex flex-row">
-                      <div className="">{i.from} - {i.to}</div>
-                    </div>
-                    <div className="w-3/5">
-                      <h2 className="text-[#00effb] truncate">{i.title}</h2>
-                      <div className="text-sm text-right flex content-end justify-end gap-3">
-                        <Delete />
-                        <Edit />
-                        <UnCheck />
+                
+                  <div key={j} className={`flex px-2 py-2 flex-row ${j%2!==0?"bg-[#05224b]":""} ${i.isCompleted&&"select-none"}`} style={{"height":"60px",  filter: i.isCompleted&&"grayscale(80%)"}}>
+                      <div className="w-2/5 flex flex-row overflow-x-hidden">
+                        <div className="">{i.from} - {i.to}</div>
+                      </div>
+                      <div className="w-3/5">
+                        <h2 className="text-[#00effb] truncate">{i.title}</h2>
+                        <div className="text-sm text-right flex justify-between gap-3">
+                          <div className="text-xs">
+                            {i.isCompleted&&"Quest Completed"}
+                          </div>
+                          <div className="flex flex-row w-1/4 justify-between">
+                            <Delete />
+                            <Edit />
+                            <Tick onClick={() => onRemove(i)} />
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
                 ))  :   
               <div className="flex flex-col justify-center items-center h-1/2">
                 <h1 className="text-2xl">No Tasks</h1>
@@ -329,7 +351,7 @@ export default function Home() {
               </div>
             </div>
             <div className="w-2/12 flex justify-end content-end items-end">
-              <div className="flex text-xl drop-shadow-lg justify-center items-center bg-[#081829] w-10 h-10"
+              <div className="flex text-xl drop-shadow-lg cursor-pointer justify-center items-center bg-[#081829] w-10 h-10"
 
                  onClick={() => {
                   console.log("DDDDDDDD")
